@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  accountId String @id @default(uuid())
+  username  String @unique
+  password  String
+  email     String @unique
+
+  user         User?
+  refreshToken RefreshToken[]
+}
+
+model User {
+  userId   String @id @default(uuid())
+  username String @unique
+
+  account Account @relation(fields: [accountId], references: [accountId])
+
+  accountId String @unique
+
+  customer Customer?
+}
+
+model RefreshToken {
+  tokenId      String  @id @default(uuid())
+  refreshtoken String?
+
+  account Account @relation(fields: [accountId], references: [accountId])
+
+  accountId String
+}
+
+model Vehicle {
+  vehicleId String   @id @default(uuid())
+  name      String
+  type      String
+  status    String
+  price     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  images Images[]
+}
+
+model Images {
+  imageId String  @id @default(uuid())
+  url     String?
+  type    String?
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [vehicleId])
+
+  vehicleId String
+}
+
+model Customer {
+  customerId  String @id @default(uuid())
+  firstName   String
+  lastName    String
+  address     String
+  phoneNumber String
+
+  user User @relation(fields: [userId], references: [userId])
+
+  userId String @unique
+}
