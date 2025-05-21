@@ -18,7 +18,6 @@ model Account {
   accountId String @id @default(uuid())
   username  String @unique
   password  String
-  email     String @unique
 
   user         User?
   refreshToken RefreshToken[]
@@ -28,11 +27,12 @@ model User {
   userId   String @id @default(uuid())
   username String @unique
 
-  account Account @relation(fields: [accountId], references: [accountId])
+  account Account @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
 
   accountId String @unique
 
-  customer Customer?
+  customer     Customer?
+  testimonials Testimonials?
 }
 
 model RefreshToken {
@@ -72,6 +72,15 @@ model Customer {
   lastName    String
   address     String
   phoneNumber String
+
+  user User @relation(fields: [userId], references: [userId])
+
+  userId String @unique
+}
+
+model Testimonials {
+  testimonialsId String @id @default(uuid())
+  content        String
 
   user User @relation(fields: [userId], references: [userId])
 
