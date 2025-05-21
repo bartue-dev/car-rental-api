@@ -1,11 +1,12 @@
 require("dotenv").config();
 const express = require("express");
-const credentials = require("./middleware/credentails");
+const credentials = require("./middleware/credentials")
 const errorHandler = require("./middleware/errorHandler");
 const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
 const cookieParser = require("cookie-parser");
 const CustomErr = require("./utils/customErr");
+const router = require("./routes")
 
 process.on("uncaughtException", (err) => {
   console.log(err.name, err.message);
@@ -25,9 +26,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 //routes
-app.get("/", (req, res) => {
-  res.send("HELLO NODE JS!")
-});
+app.use("/register", router.registerRoute)
 
 app.all(/(.*)/, (req, res, next) => {
   const err = new CustomErr(`Can't find ${req.originalUrl} on the server`, 404)
