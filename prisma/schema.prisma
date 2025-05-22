@@ -36,8 +36,9 @@ model User {
 }
 
 model RefreshToken {
-  tokenId      String  @id @default(uuid())
-  refreshtoken String?
+  tokenId      String   @id @default(uuid())
+  refreshToken String?
+  expiresAt    DateTime
 
   account Account @relation(fields: [accountId], references: [accountId])
 
