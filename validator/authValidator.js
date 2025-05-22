@@ -14,6 +14,14 @@ const validateRegister = [
     .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])[A-Za-z\d#?!@$%^&*-]{8,}$/).withMessage(`Password ${passwordLength} and ${passwordContains}`)
 ]
 
+const validateLogin = [
+  body("username").trim()
+    .notEmpty().withMessage(`Username ${isEmptyMsg}`),
+  body("password").trim()
+    .notEmpty().withMessage(`Password ${isEmptyMsg}`)
+]
+
 module.exports = {
-  validateRegister
+  validateRegister,
+  validateLogin
 }
