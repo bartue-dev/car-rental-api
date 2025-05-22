@@ -27,8 +27,8 @@ exports.register = [validateRegister ,asyncHandler(async (req, res, next) => {
     return;
   }
 
-  res.status(200).json({
-    status: 201,
+  res.status(201).json({
+    status: "success",
     message: "Account registered successfully",
   })
 })];
