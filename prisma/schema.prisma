@@ -32,7 +32,7 @@ model User {
   accountId String @unique
 
   customer     Customer?
-  testimonials Testimonials?
+  testimonials Testimonials[]
 }
 
 model RefreshToken {
@@ -85,5 +85,5 @@ model Testimonials {
 
   user User @relation(fields: [userId], references: [userId])
 
-  userId String @unique
+  userId String
 }
