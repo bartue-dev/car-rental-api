@@ -6,6 +6,7 @@ const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
 const cookieParser = require("cookie-parser");
 const CustomErr = require("./utils/customErr");
+const {cronJobs} = require("./cronJobs")
 const router = require("./routes")
 
 process.on("uncaughtException", (err) => {
@@ -26,7 +27,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 //routes
-app.use("/register", router.registerRoute)
+app.use("/v1/register", router.registerRoute);
+app.use("/v1/login", router.loginRoute)
+
+//cron jobs
+cronJobs();
 
 app.all(/(.*)/, (req, res, next) => {
   const err = new CustomErr(`Can't find ${req.originalUrl} on the server`, 404)
