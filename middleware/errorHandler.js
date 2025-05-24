@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { handlePrismaError } = require("../db/prisma")
 
 //development err
 const devErr = (res, err) => {
@@ -27,16 +28,40 @@ const prodErr = (res, err) => {
   }
 }
 
+//prisma err handler
+const prismaErrHandler = (err) => {
+  return handlePrismaError(err)
+}
+
 //err handler middleware
 const errHandler = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "err";
 
   if (process.env.NODE_ENV === "development") {
+    if (err.name === "PrismaClientKnownRequestError") {
+      prismaErrHandler(err)
+    }
+    
     devErr(res, err);
   } else if (process.env.NODE_ENV === "production") {
+    if (err.name === "PrismaClientKnownRequestError") {
+      prismaErrHandler(err)
+    }
+
     prodErr(res, err);
   }
 }
 
 module.exports = errHandler;
+
+/* 
+  ***two types of error***
+  OPERATIONAL ERROR: An error that can be predict
+  PROGRAMMING ERROR: An error that made by programmers
+
+
+  Handles production and development errors
+  this way is more secure and to pass a appropiate errors during development or production
+
+*/
