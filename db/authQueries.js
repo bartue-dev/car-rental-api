@@ -38,6 +38,22 @@ class RefreshToken {
       }
     });
   }
+
+  async currentAccountByToken(refreshToken) {
+    return await prisma.refreshToken.findFirst({
+      where: {
+        refreshToken: refreshToken
+      }
+    });
+  }
+
+  async deleteRefreshToken(accountId) {
+    return await prisma.refreshToken.delete({
+      where: {
+        accountId: accountId
+      }
+    });
+  }
 }
 
 
