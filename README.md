@@ -26,14 +26,13 @@
 
 ## About The Project
 
-car_rental_api is a personal project. It has admin side where admin can add car(vehicle) with image, update car(vehicle), delete car(vehicle). <br /> 
+car_rental_api is a personal project. It has admin side where admin can add car(vehicle) with image, update car(vehicle), delete car(vehicle). <br />
 User side where user can browse available cars(vehicles). Book a car(vehicle). Add testimonials about the service of the company.
 
 Key features:
 
 -   Register - client side register an account.
 -   Log-in - client side log-in the registered account. Then the api return an accesstoken as json response and refresh token save in cookies and database.
-
 
 Others:
 
