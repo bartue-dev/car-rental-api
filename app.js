@@ -9,6 +9,7 @@ const CustomErr = require("./utils/customErr");
 const {cronJobs} = require("./cronJobs")
 const router = require("./routes");
 const verifyJwt  = require("./middleware/verifyJwt");
+const authByRole = require("./middleware/authByRole");
 
 //handles syncchronous error. Ex. undifined variable or function
 //it should shut down the app because the server already crashed
@@ -38,14 +39,15 @@ app.use(cookieParser());
 //auth routes
 app.use("/v1/register", router.registerRoute);
 app.use("/v1/login", router.loginRoute);
-app.use("v1/refreshToken", router.refreshTokenRoute);
-app.use("v1/logout", router.logoutRoute);
+app.use("/v1/refreshToken", router.refreshTokenRoute);
+app.use("/v1/logout", router.logoutRoute);
 
 
 //api routes
 app.use(verifyJwt);
-app.use("/v1/testimonials", router.testimonialsRoute);
 app.use("/v1/vehicle", router.vehicleRoute);
+app.use("/v1/testimonials-admin", router.adminTestimonialsRoute)
+app.use("/v1/testimonials", router.userTestimonialsRoute);
 
 //cron jobs
 cronJobs();
