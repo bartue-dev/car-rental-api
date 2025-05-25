@@ -39,15 +39,13 @@ const errHandler = (err, req, res, next) => {
   err.status = err.status || "err";
 
   if (process.env.NODE_ENV === "development") {
-    if (err.name === "PrismaClientKnownRequestError") {
-      prismaErrHandler(err)
-    }
+    if (err.name === "PrismaClientKnownRequestError") err = prismaErrHandler(err)
+    
     
     devErr(res, err);
   } else if (process.env.NODE_ENV === "production") {
-    if (err.name === "PrismaClientKnownRequestError") {
-      prismaErrHandler(err)
-    }
+    if (err.name === "PrismaClientKnownRequestError") err = prismaErrHandler(err)
+    
 
     prodErr(res, err);
   }
