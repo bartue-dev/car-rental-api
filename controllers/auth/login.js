@@ -15,6 +15,7 @@ exports.login = [validateLogin, asyncHandler(async (req, res, next) => {
   //validation
   if (!validationErr.isEmpty()) {
     return res.status(400).json({
+      status: "Failed",
       message: "Log in failed",
       errors: validationErr.array()
     });
