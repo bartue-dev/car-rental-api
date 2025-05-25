@@ -9,6 +9,30 @@ class Testimonials {
       }
     })
   }
+
+  async getAllTestimonials() {
+    return await prisma.testimonials.findMany({
+      include: {
+        user: true
+      }
+    })
+  }
+
+  async deleteTestimonial(testimonialId) {
+    return await prisma.testimonials.delete({
+      where: {
+        testimonialId: testimonialId
+      }
+    });
+  }
+
+  async updateTestimonial(testimonailId) {
+    return await prisma.testimonials.update({
+      where: {
+        testimonialId: testimonailId
+      }
+    })
+  }
 }
 
 const testimonialsMethods = new Testimonials();
