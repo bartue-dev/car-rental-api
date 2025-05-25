@@ -19,7 +19,7 @@ const handleRefreshToken = asyncHandler(async (req, res, next) => {
   const refreshToken = cookies.jwt;
 
   //get the current account from db using refresh token
-  const currentAccountByToken = await refreshTokenMethods.saveRefreshToken(refreshToken);
+  const currentAccountByToken = await refreshTokenMethods.currentAccountByToken(refreshToken);
 
 
   //checks if current account by refresh token exist in db
