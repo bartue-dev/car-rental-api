@@ -1,14 +1,15 @@
 const { prisma } = require("./prisma");
 
 class Account {
-  async createAccount(username, password) {
+  async createAccount(username, password, role) {
     return await prisma.account.create({
       data: {
         username: username,
         password: password,
         user: {
           create: {
-            username: username
+            username: username,
+            role: role
             //accountId will be create automatically in user model
           }
         }
@@ -56,12 +57,23 @@ class RefreshToken {
   }
 }
 
+class User {
+  async getUser(accountId) {
+    return await prisma.user.findUnique({
+      where: {
+        accountId: accountId
+      }
+    })
+  }
+}
+
 
 const accountMethods = new Account();
 const refreshTokenMethods = new RefreshToken();
+const userMethods = new User();
 
 module.exports = {
   accountMethods,
-  refreshTokenMethods
-  
+  refreshTokenMethods,
+  userMethods
 }
