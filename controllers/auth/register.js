@@ -6,7 +6,7 @@ const { accountMethods } = require("../../db/authQueries");
 const CustomErr = require("../../utils/customErr");
 
 exports.register = [validateRegister ,asyncHandler(async (req, res, next) => {
-  const { username, password } = req.body;
+  let { username, password, role } = req.body;
   const validationErr = validationResult(req);
 
   //validation
@@ -19,7 +19,7 @@ exports.register = [validateRegister ,asyncHandler(async (req, res, next) => {
 
   const hashPassword = await bcrypt.hash(password, 10);
 
-  const createdAccount = await accountMethods.createAccount(username, hashPassword);
+  const createdAccount = await accountMethods.createAccount(username, hashPassword, role);
 
   if (!createdAccount) {
     const err = new CustomErr(`Cannot create an account`, 400);
@@ -30,5 +30,6 @@ exports.register = [validateRegister ,asyncHandler(async (req, res, next) => {
   res.status(201).json({
     status: "success",
     message: "Account registered successfully",
+    account: createdAccount
   })
 })];
