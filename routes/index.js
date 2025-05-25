@@ -6,14 +6,16 @@ const logoutRoute = require("./auth/logout");
 
 
 //api
-const testimonialsRoute = require("./api/testimonials");
-const vehicleRoute = require("./api/vehicle");
+const userTestimonialsRoute = require("./api/user/testimonialsUser");
+const adminTestimonialsRoute = require("./api/admin/testimonialsAdmin");
+const vehicleRoute = require("./api/admin/vehicle");
 
 module.exports = {
   registerRoute,
   loginRoute,
   refreshTokenRoute,
   logoutRoute,
-  testimonialsRoute,
+  userTestimonialsRoute,
+  adminTestimonialsRoute,
   vehicleRoute
 }
