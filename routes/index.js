@@ -9,6 +9,7 @@ const logoutRoute = require("./auth/logout");
 const userTestimonialsRoute = require("./api/user/testimonialsUser");
 const adminTestimonialsRoute = require("./api/admin/testimonialsAdmin");
 const vehicleRoute = require("./api/admin/vehicle");
+const imagesRoute = require("./api/admin/images");
 
 module.exports = {
   registerRoute,
@@ -17,5 +18,6 @@ module.exports = {
   logoutRoute,
   userTestimonialsRoute,
   adminTestimonialsRoute,
-  vehicleRoute
+  vehicleRoute,
+  imagesRoute
 }
