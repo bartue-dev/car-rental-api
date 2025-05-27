@@ -33,6 +33,9 @@ app.use(cors(corsOptions));
 // middleware json
 app.use(express.json());
 
+// other body request
+app.use(express.urlencoded({extended: true}))
+
 // middleware for cookies
 app.use(cookieParser());
 
@@ -42,15 +45,15 @@ app.use("/v1/login", router.loginRoute);
 app.use("/v1/refreshToken", router.refreshTokenRoute);
 app.use("/v1/logout", router.logoutRoute);
 
-
 //api routes
 app.use(verifyJwt);
+cronJobs();
 app.use("/v1/vehicle", router.vehicleRoute);
-app.use("/v1/testimonials-admin", router.adminTestimonialsRoute)
+app.use("/v1/images", router.imagesRoute);
+app.use("/v1/testimonials-admin", router.adminTestimonialsRoute);
 app.use("/v1/testimonials", router.userTestimonialsRoute);
 
 //cron jobs
-cronJobs();
 
 //default route
 //handles error if the the url cannot find
