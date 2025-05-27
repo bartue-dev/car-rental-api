@@ -64,9 +64,10 @@ model Vehicle {
 }
 
 model Images {
-  imageId String  @id @default(uuid())
-  url     String?
-  type    String?
+  imageId String @id @default(uuid())
+  name    String
+  url     String
+  type    String
 
   vehicle Vehicle @relation(fields: [vehicleId], references: [vehicleId], onDelete: Cascade)
 
