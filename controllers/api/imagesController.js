@@ -22,7 +22,7 @@ exports.addImages = [validateAddImages, asyncHandler(async (req, res, next) => {
   if (!validationErr.isEmpty()) {
     return res.status(400).json({
       status: "Failed",
-      message: "Invalid file",
+      message: "Validation Error",
       errors: validationErr.array()
     })
   }
