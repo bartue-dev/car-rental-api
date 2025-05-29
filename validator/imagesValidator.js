@@ -1,4 +1,4 @@
-const {body} = require("express-validator");
+const {body, param} = require("express-validator");
 
 
 const validateAddImages = [
@@ -15,7 +15,21 @@ const validateAddImages = [
   }).withMessage("Invalid image type")
 ]
 
+const validateVehicleId = [
+  param("vehicleId")
+    .exists().withMessage("vehicleId not exist")
+    .isUUID().withMessage("vehicleId is not a valid UUID")
+]
+
+const validateDeleteImage = [
+  param("imageId")
+    .exists().withMessage("imageId not exist")
+    .isUUID().withMessage("imageId is not a valid UUID")
+]
+
 
 module.exports = {
-  validateAddImages
+  validateAddImages,
+  validateVehicleId,
+  validateDeleteImage
 }
