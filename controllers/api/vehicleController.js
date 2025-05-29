@@ -1,7 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const { vehicleMethods} = require("../../db/api/vehicleQueries");
+const { imagesMethods } = require("../../db/api/imagesQueries");
 const { validationResult } = require("express-validator");
-const { validateAddVehicle, validateGetVehicle, validateUpdateVehicle, validateDeleteVehicle } = require("../../validator/vehicleValidator")
+const { validateAddVehicle, validateGetVehicle, validateUpdateVehicle, validateDeleteVehicle } = require("../../validator/vehicleValidator");
+const supabase = require("../../supabase/supabase");
 const CustomErr = require("../../utils/customErr");
 
 //admin
@@ -116,6 +118,30 @@ exports.deleteVehicle = [validateDeleteVehicle, asyncHandler(async (req, res, ne
       message: "Validation Error",
       errors: validationErr.array()
     });
+  }
+
+  const images = await imagesMethods.getImagesByVehicle(vehicleId);
+
+  // delete images from supabase and its folder
+  for (const image of images) {
+    const url = image.url.split("/public/images/");
+
+    const filePath = url[1].replace(/%20/g, " ");
+
+    const {data, error} = await supabase.storage
+      .from("images")
+      .remove([filePath]);
+
+    console.log("data supbase delete", data)
+    console.log("image url", url);
+    console.log("filePath", filePath);
+
+    if (error) {
+      console.log("delete supabase error", error);
+      const err = new CustomErr("Supabase error", 400);
+      next(err);
+      return
+    }
   }
 
   await vehicleMethods.deleteVehicle(vehicleId);
