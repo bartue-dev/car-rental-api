@@ -19,6 +19,38 @@ class Images {
       }
     });
   }
+
+  async getAllImages(vehicleId) {
+    return await prisma.images.findMany({
+      where: {
+        vehicleId: vehicleId
+      }
+    })
+  }
+
+  async getImage(imageId) {
+    return await prisma.images.findUnique({
+      where: {
+        imageId: imageId
+      }
+    })
+  }
+
+  async deleteImage(imageId) {
+    await prisma.images.delete({
+      where: {
+        imageId: imageId
+      }
+    })
+  }
+
+  async deleteImagesByVehicle(vehicleId) {
+    await prisma.images.deleteMany({
+      where: {
+        vehicleId: vehicleId
+      }
+    });
+  }
 }
 const imagesMethods = new Images();
 
