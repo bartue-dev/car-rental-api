@@ -1,9 +1,21 @@
 const cron = require("node-cron");
 const { deleteExpiresToken } = require("./auth/refreshToken");
 
+const flag = true;
+
 const cronJobs = () => {
-  // delete expires refresh token every 12 midnight
-  cron.schedule("* * */2 * *", deleteExpiresToken);
+
+  cron.schedule("0 0 * * *", () => {
+    // if else statement have a logic of if cronJob execute within the set time check the flag first
+    // flag is true execute the deleteExpiresToken function otherwise change the value of flag to true
+    // this means that the deleteExpiresToken function only run every other day
+    if (flag) {
+      deleteExpiresToken()
+      flag = false;
+    } else {
+      flag = true
+    }
+  });
 
 };
 
