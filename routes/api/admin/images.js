@@ -10,6 +10,11 @@ const storage = multer.memoryStorage();
 
 const upload = multer({storage: storage});
 
-router.post("/:vehicleId", upload.array("file"), imagesCon.addImages);
+router.route("/vehicle/:vehicleId")
+  .post(upload.array("file"), imagesCon.addImages)
+  .get(imagesCon.getImagesByVehicle)
+  .delete(imagesCon.deleteImagesByVehicle)
+
+router.delete("/:imageId", imagesCon.deleteImage);
 
 module.exports = router;
