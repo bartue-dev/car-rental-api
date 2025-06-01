@@ -7,7 +7,4 @@ router.use(authByRoleUser);
 
 router.post("/", testimonialsCon.createTestimonials);
 
-router.route("/:testimonialId")
-  .put(testimonialsCon.updateTestimonial)
-
 module.exports = router;
