@@ -90,11 +90,11 @@ model Bookings {
   address     String
   phoneNumber String
 
-  pickupTime DateTime
-  returnTime DateTime
-  duration   DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  pickupDateTime String
+  returnDateTime String
+  duration       String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   user User @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
 
