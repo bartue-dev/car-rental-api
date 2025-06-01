@@ -38,7 +38,7 @@ const authByRoleUser = async (req, res, next) => {
   if (currentUser.role !== "USER") {
     return res.status(401).json({
       status: "Failed",
-      message: "Unauthorized user",
+      message: "Unauthorized user, User only",
     })
   }
   
