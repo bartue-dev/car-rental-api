@@ -51,6 +51,8 @@ app.use("/v1/vehicle", router.vehicleRoute);
 app.use("/v1/images", router.imagesRoute);
 app.use("/v1/testimonials-admin", router.adminTestimonialsRoute);
 app.use("/v1/testimonials", router.userTestimonialsRoute);
+app.use("/v1/booking-admin", router.bookingRouteAdmin);
+app.use("/v1/booking", router.bookingRouteUser);
 
 //cron jobs
 cronJobs();
