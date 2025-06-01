@@ -8,7 +8,7 @@ router.use(authByRoleAdmin);
 router.get("/", testimonialsCon.getAllTestimonials);
 
 router.route("/:testimonialId")
-  .update(testimonialsCon.updateTestimonial)
+  .put(testimonialsCon.updateTestimonial)
   .delete(testimonialsCon.deleteTestimonials)
 
 module.exports = router;
