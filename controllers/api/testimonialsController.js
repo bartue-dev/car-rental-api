@@ -47,6 +47,34 @@ exports.deleteTestimonials = [validateDeleteTestimonial, asyncHandler(async (req
   res.status(204)
 })];
 
+exports.updateTestimonial = [validateUpdateTestimonial, asyncHandler(async (req, res, next) => {
+  const { testimonialId } = req.params;
+  const validationErr = validationResult(req);
+
+  // validation
+  if(!validationErr.isEmpty()) {
+    const err = new CustomErr("Invalid testimonial id", 400);
+    next(err);
+    return;
+  }
+
+  const updatedTestimonial = await testimonialsMethods.updateTestimonial(testimonialId);
+
+  if(!updatedTestimonial) {
+    const err = new CustomErr("Cannot update testimonial", 400);
+    next(err);
+    return;
+  }
+
+  res.status(200).json({
+    status: "success",
+    message: "Testimonial updated successfully",
+    data: {
+      updatedTestimonial
+    }
+  });
+})];
+
 // user
 exports.createTestimonials = [validateCreateTesmonials, asyncHandler(async (req, res, next) => {
   const { content } = req.body;
@@ -84,32 +112,5 @@ exports.createTestimonials = [validateCreateTesmonials, asyncHandler(async (req,
   });
 })];
 
-exports.updateTestimonial = [validateUpdateTestimonial, asyncHandler(async (req, res, next) => {
-  const { testimonialId } = req.params;
-  const validationErr = validationResult(req);
-
-  // validation
-  if(!validationErr.isEmpty()) {
-    const err = new CustomErr("Invalid testimonial id", 400);
-    next(err);
-    return;
-  }
-
-  const updatedTestimonial = await testimonialsMethods.updateTestimonial(testimonialId);
-
-  if(!updatedTestimonial) {
-    const err = new CustomErr("Cannot update testimonial", 400);
-    next(err);
-    return;
-  }
-
-  res.status(200).json({
-    status: "success",
-    message: "Testimonial updated successfully",
-    data: {
-      updatedTestimonial
-    }
-  });
-})];
 
 
