@@ -26,20 +26,12 @@
 
 ## About The Project
 
-car_rental_api is a personal project. It has admin side where admin can add car(vehicle) with image, update car(vehicle), delete car(vehicle). <br />
-User side where user can browse available cars(vehicles). Book a car(vehicle). Add testimonials about the service of the company.
-
-Key features:
-
--   Register - client side register an account.
--   Log-in - client side log-in the registered account. Then the api return an accesstoken as json response and refresh token save in cookies and database.
-
-Others:
-
--   Authentication - Uses a **jsonwebtoken**(jwt) for authentication/authorization.
--   Validation - Uses a express-validator to return a validation errors if client input a invalid api request
--   Error response - Created a custom error that handles the error response to every api request
--   Prisma error response - Uses the prisma error handling. Handles errors of queries.
+-   car_rental_api is a personal project.
+-   To practice creating an API with admin and user role.
+-   Usage of supabase storage. Simple cron jobs.
+-   Request valication.
+-   Proper folder structure
+-   This API will be use for the REACTJS front end/client.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -72,10 +64,36 @@ Others:
 
 ## Roadmap
 
+-   [x] create prisma schema or database design
 -   [x] register
 -   [x] sign-in
     -   [x] access token in reponse
     -   [x] refresh token save in cookies and database
-    -   [x] add cron jobs. every 24 hours the expired refresh token will be deleted
+-   [x] create a middleware that verify jsonwebtoken
+-   [x] add cron jobs. every 48 hours the expired refresh token will be deleted
+-   [x] create a middleware check the user role first before execute API
+-   [x] create a custom error handling.
+    -   [x] custom error handling for development
+    -   [x] custom error handling for production
+    -   [x] custom error handling for prisma
+-   [x] set up server with allowed credentials, cors, cookie parser, error handler for unknown api end point and server error handler uncaughtException and unhandledRejection.
+-   [x] create api controller
+    -   [x] bookings controller
+    -   [x] user can add, read, update, delete bookings on its own bookings
+    -   [x] admin can read, update, delete all bookings
+    -   [x] vehicle controller
+    -   [x] admin can add, read, update and delete vehicle
+    -   [x] images controller
+    -   [x] associated with the vehicle controller
+    -   [x] admin add an images for the vehicle
+    -   [x] images saves in supabase storage and only the images url save in db
+    -   [x] admin add, read, delete images and delete specific image
+    -   [x] testimonial controller
+    -   [x] user can create testimonial about the service of the business
+    -   [x] admin can read, update and delete testimonials
+-   [x] create db queries for api controllers
+-   [x] create validation for api and auth controller
+-   [x] import controller to route file
+-   [x] import routes to the server
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
