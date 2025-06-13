@@ -91,8 +91,6 @@ model Bookings {
   phoneNumber String
 
   pickupDateTime String
-  returnDateTime String
-  duration       String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
