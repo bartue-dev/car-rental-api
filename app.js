@@ -39,19 +39,33 @@ app.use(express.urlencoded({extended: true}))
 app.use(cookieParser());
 
 //auth routes
-app.use("/v1/register", router.registerRoute);
+app.use("/v1/register-admin", router.registerRouteAdmin);
+app.use("/v1/register", router.registerRouteUser);
 app.use("/v1/login", router.loginRoute);
 app.use("/v1/refreshToken", router.refreshTokenRoute);
 app.use("/v1/logout", router.logoutRoute);
 
+
+
 //api routes
+//public
+app.use("/v1/vehicle-public", router.vehiclePublicRoute);
+app.use("/v1/images-public", router.imagesPublicRoute);
+//verify user with JWT
 app.use(verifyJwt);
-app.use("/v1/vehicle", router.vehicleRoute);
-app.use("/v1/images", router.imagesRoute);
-app.use("/v1/testimonials-admin", router.adminTestimonialsRoute);
-app.use("/v1/testimonials", router.userTestimonialsRoute);
+//admin
 app.use("/v1/booking-admin", router.bookingRouteAdmin);
+app.use("/v1/testimonials-admin", router.adminTestimonialsRoute);
+app.use("/v1/images-admin", router.imagesRouteAdmin);
+app.use("/v1/vehicle-admin", router.vehicleRouteAdmin);
+
+//user
+app.use("/v1/testimonials", router.userTestimonialsRoute);
 app.use("/v1/booking", router.bookingRouteUser);
+app.use("/v1/vehicle", router.vehicleRouteUser);
+app.use("/v1/images", router.imagesRouteUser)
+
+
 
 //cron jobs
 cronJobs();
