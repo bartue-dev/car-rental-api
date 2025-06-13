@@ -2,7 +2,7 @@ require("dotenv").config();
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const CustomErr = require("../../utils/customErr");
-const { refreshTokenMethods } = require("../../db/authQueries");
+const { refreshTokenMethods, userMethods } = require("../../db/authQueries");
 
 
 //refreshToken
@@ -31,6 +31,9 @@ const handleRefreshToken = asyncHandler(async (req, res, next) => {
   }
 
 
+  const getUser = await userMethods.getUser(currentAccountByToken.accountId);
+  const role = getUser.role
+
    //if current account by refresh token exist
   //verify it in jwt
   //then if err or current account account id not equal to decoded id 
@@ -41,8 +44,13 @@ const handleRefreshToken = asyncHandler(async (req, res, next) => {
     refreshToken,
     process.env.REFRESH_TOKEN_SECRET,
     (err, decoded) => {
+      if (err?.name === "TokenExpiredError") {
+        const err = new CustomErr("Refresh token expired", 403);
+        next(err);
+        return;
+      }
       if (err || currentAccountByToken.accountId !== decoded.id) {
-        const err = new CustomErr("Forbidden", 403);
+        const err = new CustomErr("currentAccount and decoded not match", 403);
         next(err);
         return;
       }
@@ -51,16 +59,18 @@ const handleRefreshToken = asyncHandler(async (req, res, next) => {
       const accessToken = jwt.sign(
         {
           "id": decoded.id,
-          "username": decoded.username
+          "username": decoded.username,
+          "role": decoded.role
         },
         process.env.ACCESS_TOKEN_SECRET,
-        {expiresIn: "30m"}
+        {expiresIn: "10s"}
       );
 
       res.status(200).json({
         status: "success",
         message: "new access token",
-        accessToken: accessToken
+        accessToken: accessToken,
+        role: role
       });
     }
   )
