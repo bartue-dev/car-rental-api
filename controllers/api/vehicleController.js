@@ -50,13 +50,23 @@ res.status(200).json({
 
 //retrieve all vehicle data
 exports.getAllVehicle = asyncHandler(async (req, res, next) => {
-  const allVehicle = await vehicleMethods.getAllVehicle();
+  const { skip, take } = req.query;
+  
+  let vehicleDetails;
+  if (!skip && !take){
+    vehicleDetails = await vehicleMethods.getAllVehicle();
+  }else {
+    vehicleDetails = await vehicleMethods.getAllVehiclePagination(skip, take);
+  }
+
+  const totalItems = await vehicleMethods.vehicleCount();
 
   res.status(200).json({
     status: "success",
     message: "Vehicle details retreive successfully",
     data: {
-      allVehicle
+      vehicleDetails,
+      totalItems
     }
   })
 });
@@ -132,12 +142,7 @@ exports.deleteVehicle = [validateDeleteVehicle, asyncHandler(async (req, res, ne
       .from("images")
       .remove([filePath]);
 
-    console.log("data supbase delete", data)
-    console.log("image url", url);
-    console.log("filePath", filePath);
-
     if (error) {
-      console.log("delete supabase error", error);
       const err = new CustomErr("Supabase error", 400);
       next(err);
       return
