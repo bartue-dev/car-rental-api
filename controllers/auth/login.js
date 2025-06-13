@@ -2,7 +2,7 @@ require("dotenv").config();
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { accountMethods, refreshTokenMethods } = require("../../db/authQueries");
+const { accountMethods, refreshTokenMethods, userMethods } = require("../../db/authQueries");
 const { validationResult } = require("express-validator");
 const { validateLogin } = require("../../validator/authValidator");
 const CustomErr = require("../../utils/customErr");
@@ -22,13 +22,14 @@ exports.login = [validateLogin, asyncHandler(async (req, res, next) => {
   }
 
   const currentAccountByUsername = await accountMethods.currentAccountByUsername(username);
-
+  
   if (!currentAccountByUsername) {
     const err = new CustomErr(`Incorrect username`, 400);
     next(err);
     return;
   }
-
+  
+  const getUser = await userMethods.getUser(currentAccountByUsername.accountId);
   const passwordMatch = await bcrypt.compare(password, currentAccountByUsername.password);
 
   if (!passwordMatch) {
@@ -42,7 +43,8 @@ exports.login = [validateLogin, asyncHandler(async (req, res, next) => {
     const accessToken = jwt.sign(
       {
         "id": currentAccountByUsername.accountId,
-        "username": currentAccountByUsername.username
+        "username": currentAccountByUsername.username,
+        "role" : getUser.role
       },
       process.env.ACCESS_TOKEN_SECRET,
       {expiresIn: "30min"}
@@ -52,7 +54,8 @@ exports.login = [validateLogin, asyncHandler(async (req, res, next) => {
     const refreshToken = jwt.sign(
       {
         "id": currentAccountByUsername.accountId,
-        "username": currentAccountByUsername.username
+        "username": currentAccountByUsername.username,
+        "role" : getUser.role
       },
       process.env.REFRESH_TOKEN_SECRET,
       {expiresIn: "1d"}
@@ -83,7 +86,8 @@ exports.login = [validateLogin, asyncHandler(async (req, res, next) => {
     res.status(200).json({
       status: "success",
       message: "Log in successfully",
-      accessToken: accessToken
+      accessToken: accessToken,
+      account: getUser
     });  
   }
 })];
