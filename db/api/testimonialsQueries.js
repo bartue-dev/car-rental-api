@@ -18,6 +18,22 @@ class Testimonials {
     })
   }
 
+  async getTestimonial(testimonialId) {
+    return await prisma.testimonials.findUnique({
+      where: {
+        testimonialId: testimonialId
+      }
+    })
+  }
+
+  async getTestimonialsByUser(accountId) {
+    return await prisma.testimonials.findMany({
+      where: {
+        accountId: accountId
+      }
+    })
+  }
+
   async deleteTestimonial(testimonialId) {
     return await prisma.testimonials.delete({
       where: {
