@@ -39,9 +39,9 @@
 
 ## DB Diagram
 
-<div align="center">
-  <image src="/car-rental-dbdiagram.png" />
-</div>
+![Database Diagram](public/car-rental-dbdiagram.png)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
