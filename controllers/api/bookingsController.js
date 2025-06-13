@@ -13,8 +13,6 @@ exports.addBooking = [validationAddBooking, asyncHandler(async (req, res, next) 
       address, 
       phoneNumber, 
       pickupDateTime,
-      returnDateTime,
-      duration  
     } = req.body;
   const { id } = req.user;
   const validationErr = validationResult(req);
@@ -34,8 +32,6 @@ exports.addBooking = [validationAddBooking, asyncHandler(async (req, res, next) 
     address: address,
     phoneNumber: phoneNumber,
     pickupDateTime: pickupDateTime,
-    returnDateTime: returnDateTime,
-    duration: duration,
     accountId: id
   });
 
@@ -117,8 +113,6 @@ exports.updateBookingUser = asyncHandler(async (req, res, next) => {
       address, 
       phoneNumber, 
       pickupDateTime,
-      returnDateTime,
-      duration  
     } = req.body;
 
   const updatedBookingDetails = await bookingMethods.updateBookingUser(bookingId, id, {
@@ -127,8 +121,6 @@ exports.updateBookingUser = asyncHandler(async (req, res, next) => {
     address: address,
     phoneNumber: phoneNumber,
     pickupDateTime: pickupDateTime,
-    returnDateTime: returnDateTime,
-    duration: duration
   });
 
 
@@ -224,8 +216,6 @@ exports.updateBookingAdmin = asyncHandler(async (req, res, next) => {
       address, 
       phoneNumber, 
       pickupDateTime,
-      returnDateTime,
-      duration  
     } = req.body;
 
   const updatedBookingDetails = await bookingMethods.updateBookingAdmin(bookingId, {
@@ -234,8 +224,6 @@ exports.updateBookingAdmin = asyncHandler(async (req, res, next) => {
     address: address,
     phoneNumber: phoneNumber,
     pickupDateTime: pickupDateTime,
-    returnDateTime: returnDateTime,
-    duration: duration
   });
 
 
