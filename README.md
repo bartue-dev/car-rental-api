@@ -39,7 +39,7 @@
 
 ## DB Diagram
 
-![alt text](car-rental-dbdiagram.png)
+![alt text](public/car-rental-dbdiagram.png)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
