@@ -35,6 +35,14 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- DB DIAGRAM -->
+
+## DB Diagram
+
+<div align="center">
+  <image src="/car-rental-dbdiagram.png" />
+</div>
+
 ### Built With
 
 <!-- BADGES -->
