@@ -16,12 +16,26 @@ class Vehicle {
     })
   }
 
-  async getAllVehicle() {
+  async getAllVehiclePagination(skip, take) {
+    return await prisma.vehicle.findMany({
+      skip: +skip,
+      take: +take,
+      include: {
+        images: true
+      }
+    });
+  }
+
+   async getAllVehicle() {
     return await prisma.vehicle.findMany({
       include: {
         images: true
       }
     });
+  }
+
+  async vehicleCount() {
+    return await prisma.vehicle.count();
   }
 
   async getVehicle(vehicleId) {
