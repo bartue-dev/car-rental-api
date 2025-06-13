@@ -23,6 +23,26 @@ exports.getAllTestimonials = asyncHandler(async (req, res, next) => {
   });
 });
 
+exports.getTestimonialAdmin = asyncHandler(async (req, res, next) => {
+  const { testimonialId } = req.params;
+
+  const testimonialDetails = await testimonialsMethods.getTestimonial(testimonialId);
+
+  if (!testimonialDetails) {
+    const err = new CustomErr("Cannot retrieve testimonial", 400)
+    next(err);
+    return
+  }
+
+  res.status(200).json({
+    status: "Success",
+    message: "Testimonial retrieve successfully",
+    data: {
+      testimonialDetails
+    }
+  });
+});
+
 exports.deleteTestimonials = [validateDeleteTestimonial, asyncHandler(async (req, res, next) => {
   const { testimonialId } = req.params;
   const validationErr = validationResult(req);
@@ -111,6 +131,46 @@ exports.createTestimonials = [validateCreateTesmonials, asyncHandler(async (req,
     }
   });
 })];
+
+exports.getTestimonialUser = asyncHandler(async (req, res, next) => {
+  const { testimonialId } = req.params;
+
+  const testimonialDetails = await testimonialsMethods.getTestimonial(testimonialId);
+
+  if (!testimonialDetails) {
+    const err = new CustomErr("Cannot retrieve testimonial", 400)
+    next(err);
+    return
+  }
+
+  res.status(200).json({
+    status: "Success",
+    message: "Testimonial retrieve successfully",
+    data: {
+      testimonialDetails
+    }
+  });
+});
+
+exports.getTestimonialsByUser = asyncHandler(async (req, res, next) => {
+  const { id } = req.user;
+
+  const testimonialsDetails = await testimonialsMethods.getTestimonialsByUser(id);
+
+  if (!testimonialsDetails) {
+    const err = new CustomErr("Cannot retrieve testomials", 400);
+    next(err);
+    return;
+  }
+
+  res.status(200).json({
+    status: "Success",
+    message: "Testimonials retrieve successfully",
+    data: {
+      testimonialsDetails
+    }
+  })
+});
 
 
 
