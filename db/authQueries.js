@@ -49,7 +49,7 @@ class RefreshToken {
   }
 
   async deleteRefreshToken(accountId) {
-    return await prisma.refreshToken.delete({
+    return await prisma.refreshToken.deleteMany({
       where: {
         accountId: accountId
       }
