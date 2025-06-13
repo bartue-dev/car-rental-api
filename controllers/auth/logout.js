@@ -32,6 +32,7 @@ const logout = asyncHandler(async (req, res, next) => {
     return res.sendStatus(204);
   }
 
+  //delete refreshToken in db
   await refreshTokenMethods.deleteRefreshToken(currentAccountByToken.accountId);
 
   res.clearCookie(
