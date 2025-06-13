@@ -10,5 +10,6 @@ router.get("/", testimonialsCon.getAllTestimonials);
 router.route("/:testimonialId")
   .put(testimonialsCon.updateTestimonial)
   .delete(testimonialsCon.deleteTestimonials)
+  .get(testimonialsCon.getTestimonialAdmin)
 
 module.exports = router;
