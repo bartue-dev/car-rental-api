@@ -17,11 +17,7 @@ const validationAddBooking = [
     .notEmpty().withMessage(`Phone number ${isEmptyMsg}`)
     .isMobilePhone("en-PH").withMessage("Invalid mobile number"),
   body("pickupDateTime").trim()
-    .notEmpty().withMessage(`Pickup time ${isEmptyMsg}`),
-  body("returnDateTime").trim()
-    .notEmpty().withMessage(`Return time ${isEmptyMsg}`),
-  body("duration").trim()
-    .notEmpty().withMessage(`Duration ${isEmptyMsg}`)
+    .notEmpty().withMessage(`Pickup time ${isEmptyMsg}`)
 ]
 
 const validateBookingId = [
