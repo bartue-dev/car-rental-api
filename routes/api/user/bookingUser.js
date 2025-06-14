@@ -11,7 +11,7 @@ router.route("/")
 
 router.route("/:bookingId")
   .get(bookingCon.getBookingUser)
-  .update(bookingCon.updateBookingUser)
+  .put(bookingCon.updateBookingUser)
   .delete(bookingCon.deleteBookingUser)
 
 
