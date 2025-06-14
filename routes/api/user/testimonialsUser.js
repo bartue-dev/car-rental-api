@@ -5,6 +5,10 @@ const { authByRoleUser } = require("../../../middleware/authByRole")
 
 router.use(authByRoleUser);
 
-router.post("/", testimonialsCon.createTestimonials);
+router.route("/")
+  .post(testimonialsCon.createTestimonials)
+  .get(testimonialsCon.getTestimonialsByUser)
+
+router.get("/:testimonailId", testimonialsCon.getTestimonialUser)
 
 module.exports = router;
