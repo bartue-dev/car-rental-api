@@ -6,7 +6,7 @@ const passwordLength = "must be atleast 8 characters or more";
 const passwordContains = "must contains number, symbold and letters";
 const role = ["USER", "ADMIN"];
 
-const validateRegister = [
+const validateRegisterAdmin = [
   body("username").trim()
     .notEmpty().withMessage(`Username ${isEmptyMsg}`)
     .isLength({min: 4}).withMessage(`Username ${isLengthMsg}`)
@@ -27,6 +27,16 @@ const validateRegister = [
     }).withMessage("role must be either USER or ADMIN")
 ]
 
+const validateRegisterUser = [
+  body("username").trim()
+    .notEmpty().withMessage(`Username ${isEmptyMsg}`)
+    .isLength({min: 4}).withMessage(`Username ${isLengthMsg}`)
+    .exists().withMessage("Username already exist"),
+  body("password").trim()
+    .notEmpty().withMessage(`Password ${isEmptyMsg}`)
+    .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])[A-Za-z\d#?!@$%^&*-]{8,}$/).withMessage(`Password ${passwordLength} and ${passwordContains}`)
+]
+
 const validateLogin = [
   body("username").trim()
     .notEmpty().withMessage(`Username ${isEmptyMsg}`),
@@ -35,6 +45,7 @@ const validateLogin = [
 ]
 
 module.exports = {
-  validateRegister,
+  validateRegisterAdmin,
+  validateRegisterUser,
   validateLogin
 }
