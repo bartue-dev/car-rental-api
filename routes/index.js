@@ -1,27 +1,42 @@
 //auth
-const registerRoute = require("./auth/register");
+const registerRouteUser = require("./auth/registerUser");
+const registerRouteAdmin = require("./auth/registerAdmin");
 const loginRoute = require("./auth/login");
 const refreshTokenRoute = require("./auth/refreshToken");
 const logoutRoute = require("./auth/logout");
 
 
 //api
+//user
 const userTestimonialsRoute = require("./api/user/testimonialsUser");
+const bookingRouteUser = require("./api/user/bookingUser");
+const vehicleRouteUser = require("./api/user/vehicleUser");
+const imagesRouteUser = require("./api/user/imagesUser");
+
+//admin
+const vehicleRouteAdmin = require("./api/admin/vehicleAdmin");
+const imagesRouteAdmin = require("./api/admin/imagesAdmin");
 const adminTestimonialsRoute = require("./api/admin/testimonialsAdmin");
-const vehicleRoute = require("./api/admin/vehicle");
-const imagesRoute = require("./api/admin/images");
-const bookingRouteUser = require("./api/user/bookingUser")
 const bookingRouteAdmin = require("./api/admin/bookingAdmin")
 
+//pubic
+const vehiclePublicRoute = require("./api/publicRoute/vehiclePublic");
+const imagesPublicRoute = require("./api/publicRoute/imagesPublic")
+
 module.exports = {
-  registerRoute,
+  registerRouteAdmin,
+  registerRouteUser,
   loginRoute,
   refreshTokenRoute,
   logoutRoute,
   userTestimonialsRoute,
   adminTestimonialsRoute,
-  vehicleRoute,
-  imagesRoute,
+  vehicleRouteAdmin,
+  imagesRouteAdmin,
   bookingRouteUser,
-  bookingRouteAdmin
+  bookingRouteAdmin,
+  imagesRouteUser,
+  vehicleRouteUser,
+  vehiclePublicRoute,
+  imagesPublicRoute
 }
