@@ -10,7 +10,7 @@ const CustomErr = require("../utils/customErr");
 const verifyJwt = (req, res, next) => {
   const authHeader = req.headers["authorization"];
 
-  if (!authHeader.startsWith("Bearer")) {
+  if (!authHeader?.startsWith("Bearer")) {
     const err = new CustomErr(`Invalid authorization header`, 401);
     next(err);
     return;
