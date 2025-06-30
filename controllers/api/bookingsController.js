@@ -161,6 +161,7 @@ exports.deleteBookingUser = [validateBookingId, asyncHandler(async (req, res, ne
 //get all bookings
 exports.getAllBookings = asyncHandler(async (req, res, next) => {
   const bookingsDetails = await bookingMethods.gelAllBookings();
+  const totalItems = await bookingMethods.bookingsCount();
 
   if (!bookingsDetails) {
     const err = new CustomErr("Cannot retrieve all bookings", 400);
@@ -172,7 +173,8 @@ exports.getAllBookings = asyncHandler(async (req, res, next) => {
     status: "Success",
     message: "Bookings retrieve successfully",
     data: {
-      bookingsDetails
+      bookingsDetails,
+      totalItems
     }
   });
 });
@@ -216,6 +218,7 @@ exports.updateBookingAdmin = asyncHandler(async (req, res, next) => {
       address, 
       phoneNumber, 
       pickupDateTime,
+      status
     } = req.body;
 
   const updatedBookingDetails = await bookingMethods.updateBookingAdmin(bookingId, {
@@ -224,6 +227,7 @@ exports.updateBookingAdmin = asyncHandler(async (req, res, next) => {
     address: address,
     phoneNumber: phoneNumber,
     pickupDateTime: pickupDateTime,
+    status: status
   });
 
 
