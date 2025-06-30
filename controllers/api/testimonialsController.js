@@ -7,6 +7,7 @@ const CustomErr = require("../../utils/customErr");
 // admin 
 exports.getAllTestimonials = asyncHandler(async (req, res, next) => {
   const allTestimonials = await testimonialsMethods.getAllTestimonials();
+  const totalItems = await testimonialsMethods.testimonialsCount();
 
   if(!allTestimonials) {
     const err = new CustomErr("Cannot retrive all testimonials", 400);
@@ -18,7 +19,8 @@ exports.getAllTestimonials = asyncHandler(async (req, res, next) => {
     status: "success",
     message: "Testiminols retrive successfully",
     data: {
-      allTestimonials
+      allTestimonials,
+      totalItems
     }
   });
 });
