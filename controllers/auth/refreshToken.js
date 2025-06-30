@@ -63,7 +63,7 @@ const handleRefreshToken = asyncHandler(async (req, res, next) => {
           "role": decoded.role
         },
         process.env.ACCESS_TOKEN_SECRET,
-        {expiresIn: "10s"}
+        {expiresIn: "30min"}
       );
 
       res.status(200).json({
