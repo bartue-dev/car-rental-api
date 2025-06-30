@@ -18,6 +18,10 @@ class Testimonials {
     })
   }
 
+  async testimonialsCount() {
+    return await prisma.testimonials.count();
+  }
+
   async getTestimonial(testimonialId) {
     return await prisma.testimonials.findUnique({
       where: {
