@@ -19,6 +19,10 @@ class Booking {
     return await prisma.bookings.findMany();
   }
 
+  async bookingsCount() {
+    return await prisma.bookings.count();
+  }
+
   async getBookingAdmin(bookingId) {
     return await prisma.bookings.findUnique({
       where: {
