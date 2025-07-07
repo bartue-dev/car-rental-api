@@ -5,7 +5,7 @@ const {validationAddBooking, validateBookingId} = require("../../validator/booki
 const CustomErr = require("../../utils/customErr");
 
 //USER
-//add booking
+//add booking (also use in admin route)
 exports.addBooking = [validationAddBooking, asyncHandler(async (req, res, next) => {
   const {
       firstName,
@@ -13,6 +13,7 @@ exports.addBooking = [validationAddBooking, asyncHandler(async (req, res, next) 
       address, 
       phoneNumber, 
       pickupDateTime,
+      vehicleId
     } = req.body;
   const { id } = req.user;
   const validationErr = validationResult(req);
@@ -32,7 +33,8 @@ exports.addBooking = [validationAddBooking, asyncHandler(async (req, res, next) 
     address: address,
     phoneNumber: phoneNumber,
     pickupDateTime: pickupDateTime,
-    accountId: id
+    accountId: id,
+    vehicleId: vehicleId
   });
 
   if (!bookingDetails) {
@@ -218,7 +220,8 @@ exports.updateBookingAdmin = asyncHandler(async (req, res, next) => {
       address, 
       phoneNumber, 
       pickupDateTime,
-      status
+      status,
+      vehicleId
     } = req.body;
 
   const updatedBookingDetails = await bookingMethods.updateBookingAdmin(bookingId, {
@@ -227,7 +230,8 @@ exports.updateBookingAdmin = asyncHandler(async (req, res, next) => {
     address: address,
     phoneNumber: phoneNumber,
     pickupDateTime: pickupDateTime,
-    status: status
+    status: status,
+    vehicleId: vehicleId
   });
 
 
