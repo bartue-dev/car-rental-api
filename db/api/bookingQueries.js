@@ -16,7 +16,11 @@ class Booking {
   }
 
   async gelAllBookings(){
-    return await prisma.bookings.findMany();
+    return await prisma.bookings.findMany({
+      include: {
+        vehicle: true
+      }
+    });
   }
 
   async bookingsCount() {
@@ -27,6 +31,9 @@ class Booking {
     return await prisma.bookings.findUnique({
       where: {
         bookingId: bookingId
+      },
+      include: {
+        vehicle: true
       }
     });
   }
