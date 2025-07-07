@@ -15,6 +15,8 @@ router.route("/vehicle/:vehicleId")
   .get(imagesCon.getImagesByVehicle)
   .delete(imagesCon.deleteImagesByVehicle)
 
+router.put("/:imageId/vehicle/:vehicleId", upload.array("file"), imagesCon.updateImage);
+
 router.delete("/:imageId", imagesCon.deleteImage);
 
 module.exports = router;
