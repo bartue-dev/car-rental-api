@@ -7,6 +7,7 @@ router.use(authByRoleAdmin)
 
 router.route("/")
   .get(bookingCon.getAllBookings)
+  .post(bookingCon.addBooking)
 
 router.route("/:bookingId")
   .get(bookingCon.getBookingAdmin)
