@@ -99,6 +99,74 @@ exports.getImagesByVehicle = [validateVehicleId, asyncHandler(async (req, res, n
 
 })];
 
+//update image
+exports.updateImage = asyncHandler(async (req, res, next) => {
+  const { imageId, vehicleId } = req.params;
+  const { id } = req.user;
+  const files = req.files;
+
+  console.log("FILES: ", files)
+
+
+  // setup the deletion of image first
+  const image = await imagesMethods.getImage(imageId);
+
+  console.log("IMAGE FROM UPDATE CON: ", image)
+
+  const url = image.url.split("/public/images");
+  const filePath = url[1].replace(/%20/g, " ");
+
+  //delete image in supabase storage
+  const {data, error} = await supabase.storage
+    .from("images")
+    .remove([filePath])
+
+  if (error) {
+    return res.status(400).json({
+      status: "Failed",
+      message: "Supabase error",
+      error: error
+    });
+  }
+
+  //delete image in database
+  await imagesMethods.deleteImage(imageId);
+
+
+  // setup the new image to be added
+  for (const file of files) {
+    const filePath = `${id}/${file.originalname}`;
+    const fileBase64 = decode(file.buffer.toString("base64"));
+
+    const { data, error } = await supabase.storage
+      .from("images")
+      .upload(filePath, fileBase64, {
+        contentType: file.mimetype
+      });
+
+    if (error) {
+      return res.status(400).json({
+        status: "Failed",
+        message: "Supabase error",
+        errors: error
+      });
+    }
+
+    const {data: image} = supabase.storage
+      .from("images")
+      .getPublicUrl(filePath)
+
+    const imageUrl = image.publicUrl;
+
+    await imagesMethods.addImages(file.originalname, imageUrl, file.mimetype, vehicleId);
+  }
+
+  res.status(200).json({
+    status: "success",
+    message: "Image updated successfully",
+  });
+})
+
 //delete images by vehicle
 exports.deleteImagesByVehicle = [validateVehicleId, asyncHandler(async (req, res, next) => {
   const {vehicleId} = req.params;
