@@ -17,7 +17,10 @@ const validationAddBooking = [
     .notEmpty().withMessage(`Phone number ${isEmptyMsg}`)
     .isMobilePhone("en-PH").withMessage("Invalid mobile number"),
   body("pickupDateTime").trim()
-    .notEmpty().withMessage(`Pickup time ${isEmptyMsg}`)
+    .notEmpty().withMessage(`Pickup time ${isEmptyMsg}`),
+  body("vehicleId").trim()
+    .exists().withMessage("vehicleId doesn't exist")
+    .isUUID().withMessage("vehicleId is not a valid UUID")
 ]
 
 const validateBookingId = [
