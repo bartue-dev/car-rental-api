@@ -10,5 +10,6 @@ router.route("/")
 
 router.route("/:vehicleId")
   .get(vehicleCon.getVehicle)
+  .put(vehicleCon.updateVehicle)
 
 module.exports = router;
