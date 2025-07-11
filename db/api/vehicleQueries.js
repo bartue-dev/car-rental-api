@@ -50,7 +50,7 @@ class Vehicle {
   }
 
   async updateVehicle(vehicleId, name, type, status, price) {
-    await prisma.vehicle.update({
+    return await prisma.vehicle.update({
       where: {
         vehicleId: vehicleId
       },
@@ -59,6 +59,9 @@ class Vehicle {
         type: type,
         status: status,
         price: price
+      },
+      include: {
+        images: true
       }
     });
   }
