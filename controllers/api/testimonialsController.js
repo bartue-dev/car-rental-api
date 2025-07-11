@@ -66,7 +66,7 @@ exports.deleteTestimonials = [validateDeleteTestimonial, asyncHandler(async (req
     return;
   }
 
-  res.status(204)
+  res.sendStatus(204)
 })];
 
 exports.updateTestimonial = [validateUpdateTestimonial, asyncHandler(async (req, res, next) => {
