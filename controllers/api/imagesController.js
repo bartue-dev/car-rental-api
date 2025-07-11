@@ -105,15 +105,10 @@ exports.updateImage = asyncHandler(async (req, res, next) => {
   const { id } = req.user;
   const files = req.files;
 
-  console.log("FILES: ", files)
-
-
   // setup the deletion of image first
   const image = await imagesMethods.getImage(imageId);
 
-  console.log("IMAGE FROM UPDATE CON: ", image)
-
-  const url = image.url.split("/public/images");
+  const url = image.url.split("/public/images/");
   const filePath = url[1].replace(/%20/g, " ");
 
   //delete image in supabase storage
@@ -132,6 +127,7 @@ exports.updateImage = asyncHandler(async (req, res, next) => {
   //delete image in database
   await imagesMethods.deleteImage(imageId);
 
+  let imageDetails;
 
   // setup the new image to be added
   for (const file of files) {
@@ -158,12 +154,15 @@ exports.updateImage = asyncHandler(async (req, res, next) => {
 
     const imageUrl = image.publicUrl;
 
-    await imagesMethods.addImages(file.originalname, imageUrl, file.mimetype, vehicleId);
+   imageDetails = await imagesMethods.addImages(file.originalname, imageUrl, file.mimetype, vehicleId);
   }
 
   res.status(200).json({
     status: "success",
     message: "Image updated successfully",
+    data: {
+      imageDetails
+    }
   });
 })
 
