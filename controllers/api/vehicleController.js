@@ -109,11 +109,14 @@ exports.updateVehicle = [validateUpdateVehicle, asyncHandler(async (req, res, ne
     })
   }
 
-  await vehicleMethods.updateVehicle(vehicleId, name, type, status, Number(price));
+  const vehicleDetails = await vehicleMethods.updateVehicle(vehicleId, name, type, status, Number(price));
 
   res.status(200).json({
     status: "Success",
-    message: "Vehicle data updated successfully"
+    message: "Vehicle data updated successfully",
+    data: {
+      vehicleDetails
+    }
   })
 })];
 
