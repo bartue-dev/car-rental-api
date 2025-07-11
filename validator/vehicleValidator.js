@@ -5,7 +5,7 @@ const isEmptyMsg = "must not be empty";
 const validateAddVehicle = [
   body("name").trim()
     .notEmpty().withMessage(`Vehicle name ${isEmptyMsg}`)
-    .isLength({ min: 4}).withMessage(`Name must be atleast 4 or more characters long`),
+    .isLength({ min: 2}).withMessage(`Name must be atleast 4 or more characters long`),
   body("type").trim()
     .notEmpty().withMessage(`Vehicle type ${isEmptyMsg}`),
   body("price").trim()
