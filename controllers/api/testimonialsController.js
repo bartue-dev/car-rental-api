@@ -97,6 +97,8 @@ exports.updateTestimonial = [validateUpdateTestimonial, asyncHandler(async (req,
   });
 })];
 
+
+
 // user
 exports.createTestimonials = [validateCreateTesmonials, asyncHandler(async (req, res, next) => {
   const { content } = req.body;
