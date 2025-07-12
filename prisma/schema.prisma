@@ -81,7 +81,16 @@ model Testimonials {
 
   user User @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
 
-  accountId String
+  accountId           String
+  selectedTestimonial SelectedTestimonials?
+}
+
+model SelectedTestimonials {
+  selectedTestimonialId String @id @default(uuid())
+
+  testimonial Testimonials @relation(fields: [testimonialId], references: [testimonialId], onDelete: Cascade)
+
+  testimonialId String @unique
 }
 
 model Bookings {
