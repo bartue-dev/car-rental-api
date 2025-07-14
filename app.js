@@ -51,6 +51,7 @@ app.use("/v1/logout", router.logoutRoute);
 //public
 app.use("/v1/vehicle-public", router.vehiclePublicRoute);
 app.use("/v1/images-public", router.imagesPublicRoute);
+app.use("/v1/selectedTestimonials-public", router.selectedTestimonialPublicRoute);
 //verify user with JWT
 app.use(verifyJwt);
 //admin
@@ -58,6 +59,7 @@ app.use("/v1/booking-admin", router.bookingRouteAdmin);
 app.use("/v1/testimonials-admin", router.adminTestimonialsRoute);
 app.use("/v1/images-admin", router.imagesRouteAdmin);
 app.use("/v1/vehicle-admin", router.vehicleRouteAdmin);
+app.use("/v1/selectedTestimonials-admin", router.selectedTestimonialAdmin);
 
 //user
 app.use("/v1/testimonials", router.userTestimonialsRoute);
