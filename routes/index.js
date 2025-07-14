@@ -18,10 +18,12 @@ const vehicleRouteAdmin = require("./api/admin/vehicleAdmin");
 const imagesRouteAdmin = require("./api/admin/imagesAdmin");
 const adminTestimonialsRoute = require("./api/admin/testimonialsAdmin");
 const bookingRouteAdmin = require("./api/admin/bookingAdmin")
+const selectedTestimonialAdmin = require("./api/admin/selectedTestimonialsAdmin");
 
 //pubic
 const vehiclePublicRoute = require("./api/publicRoute/vehiclePublic");
-const imagesPublicRoute = require("./api/publicRoute/imagesPublic")
+const imagesPublicRoute = require("./api/publicRoute/imagesPublic");
+const selectedTestimonialPublicRoute = require("./api/publicRoute/selectedTestimonialsPublic");
 
 module.exports = {
   registerRouteAdmin,
@@ -38,5 +40,7 @@ module.exports = {
   imagesRouteUser,
   vehicleRouteUser,
   vehiclePublicRoute,
-  imagesPublicRoute
+  imagesPublicRoute,
+  selectedTestimonialPublicRoute,
+  selectedTestimonialAdmin
 }
