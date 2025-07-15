@@ -14,8 +14,6 @@ const validateDeleteTestimonial = [
 ]
 
 const validateUpdateTestimonial = [
-  body("content").trim()
-    .notEmpty().withMessage(`Content ${isEmptyMsg}`),
   param("testimonialId").trim()
     .exists().withMessage("testimonailId not exist")
     .isUUID().withMessage("testimonialId must be a valid UUID")
