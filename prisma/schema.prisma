@@ -32,10 +32,9 @@ model User {
 
   accountId String @unique
 
-  testimonials         Testimonials[]
-  vehicle              Vehicle[]
-  bookings             Bookings[]
-  selectedTestimonials SelectedTestimonials?
+  testimonials Testimonials[]
+  vehicle      Vehicle[]
+  bookings     Bookings[]
 }
 
 model RefreshToken {
@@ -77,8 +76,9 @@ model Images {
 }
 
 model Testimonials {
-  testimonialId String @id @default(uuid())
+  testimonialId String  @id @default(uuid())
   content       String
+  isSelected    Boolean @default(false)
 
   user User @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
 
@@ -90,9 +90,7 @@ model SelectedTestimonials {
   selectedTestimonialId String @id @default(uuid())
 
   testimonial Testimonials @relation(fields: [testimonialId], references: [testimonialId], onDelete: Cascade)
-  user        User         @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
 
-  accountId     String @unique
   testimonialId String @unique
 }
 
