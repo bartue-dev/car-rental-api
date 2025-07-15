@@ -6,6 +6,7 @@ const {authByRoleAdmin} = require("../../../middleware/authByRole")
 router.use(authByRoleAdmin);
 
 router.route("/:testimonialId")
-  .post(selectedTestimonialCon.selectTestimonial)  
+  .post(selectedTestimonialCon.selectTestimonial)
+  .delete(selectedTestimonialCon.deleteSelectedTestimonial)
 
 module.exports = router;
