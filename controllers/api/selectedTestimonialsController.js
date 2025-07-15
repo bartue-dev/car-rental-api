@@ -31,6 +31,16 @@ exports.selectTestimonial = [validateSelectedTestimonial ,asyncHandler(async (re
   })
 })]
 
+exports.deleteSelectedTestimonial = asyncHandler(async (req, res, next) => {
+  const { testimonialId } = req.params;
+
+  console.log("DELETE SELECTED TESTIMONIAL:", testimonialId)
+
+  await selectedTestimonialsMethods.deleteSelectedTestimonial(testimonialId);
+
+  res.sendStatus(204);
+})
+
 //public
 exports.getSelectedTestimonials = asyncHandler(async (req, res, next) => {
   const selectedTestimonials = await selectedTestimonialsMethods.getSelectedTestimonials();
@@ -43,3 +53,4 @@ exports.getSelectedTestimonials = asyncHandler(async (req, res, next) => {
     }
   })
 })
+
