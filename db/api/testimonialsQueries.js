@@ -46,11 +46,10 @@ class Testimonials {
     });
   }
 
-  async updateTestimonial(testimonailId) {
+  async updateTestimonial(testimonialId, isSelected) {
     return await prisma.testimonials.update({
-      where: {
-        testimonialId: testimonailId
-      }
+      where: {testimonialId: testimonialId},
+      data: {isSelected: isSelected}
     })
   }
 }
