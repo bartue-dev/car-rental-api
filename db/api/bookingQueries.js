@@ -8,9 +8,12 @@ class Booking {
   }
 
   async getBookingsByUser(accountId) {
-    return await prisma.bookings.findUnique({
+    return await prisma.bookings.findMany({
       where: {
         accountId: accountId
+      },
+      include: {
+        vehicle: true
       }
     })
   }
