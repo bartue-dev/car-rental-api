@@ -71,16 +71,20 @@ exports.deleteTestimonials = [validateDeleteTestimonial, asyncHandler(async (req
 
 exports.updateTestimonial = [validateUpdateTestimonial, asyncHandler(async (req, res, next) => {
   const { testimonialId } = req.params;
+  const { isSelected } = req.body;
   const validationErr = validationResult(req);
 
-  // validation
-  if(!validationErr.isEmpty()) {
-    const err = new CustomErr("Invalid testimonial id", 400);
-    next(err);
-    return;
-  }
+  console.log("Testimonial ID:", testimonialId)
 
-  const updatedTestimonial = await testimonialsMethods.updateTestimonial(testimonialId);
+  // validation
+  if (!validationErr.isEmpty()) {
+    return res.status(400).json({
+      status: "Failed",
+      message: "Validation Error",
+      errors: validationErr.array()
+  })}
+
+  const updatedTestimonial = await testimonialsMethods.updateTestimonial(testimonialId, isSelected);
 
   if(!updatedTestimonial) {
     const err = new CustomErr("Cannot update testimonial", 400);
@@ -96,7 +100,6 @@ exports.updateTestimonial = [validateUpdateTestimonial, asyncHandler(async (req,
     }
   });
 })];
-
 
 
 // user
