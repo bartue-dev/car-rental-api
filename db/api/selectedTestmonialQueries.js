@@ -4,14 +4,26 @@ class SelectedTestimonials {
   async selectTestimonial(testimonialId) {
    return await prisma.selectedTestimonials.create({
       data: {
-        testimonialId: testimonialId
-      }
+        testimonialId: testimonialId,
+      },
     })
   }
 
   async getSelectedTestimonials() {
     return await prisma.selectedTestimonials.findMany({
-      include: { testimonial: true }
+      include: { 
+        testimonial: {
+          include: {
+            user: true
+          }
+        }
+      }
+    })
+  }
+
+  async deleteSelectedTestimonial(testimonailId) {
+    return await prisma.selectedTestimonials.delete({
+      where: {testimonialId: testimonailId}
     })
   }
 }
