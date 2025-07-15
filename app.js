@@ -45,15 +45,15 @@ app.use("/v1/login", router.loginRoute);
 app.use("/v1/refreshToken", router.refreshTokenRoute);
 app.use("/v1/logout", router.logoutRoute);
 
-
-
 //api routes
 //public
 app.use("/v1/vehicle-public", router.vehiclePublicRoute);
 app.use("/v1/images-public", router.imagesPublicRoute);
 app.use("/v1/selectedTestimonials-public", router.selectedTestimonialPublicRoute);
+
 //verify user with JWT
 app.use(verifyJwt);
+
 //admin
 app.use("/v1/booking-admin", router.bookingRouteAdmin);
 app.use("/v1/testimonials-admin", router.adminTestimonialsRoute);
