@@ -115,6 +115,7 @@ exports.updateBookingUser = asyncHandler(async (req, res, next) => {
       address, 
       phoneNumber, 
       pickupDateTime,
+      vehicleId
     } = req.body;
 
   const updatedBookingDetails = await bookingMethods.updateBookingUser(bookingId, id, {
@@ -123,6 +124,7 @@ exports.updateBookingUser = asyncHandler(async (req, res, next) => {
     address: address,
     phoneNumber: phoneNumber,
     pickupDateTime: pickupDateTime,
+    vehicleId: vehicleId
   });
 
 
